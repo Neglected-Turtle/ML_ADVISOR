@@ -1,0 +1,180 @@
+{
+  "status": "finalized",
+  "model_type": "low_fidelity_tie_aware_pairwise_selector_with_separate_risk_model",
+  "training_datasets": 254,
+  "candidate_models": [
+    "logistic",
+    "decision_tree",
+    "random_forest",
+    "extra_trees",
+    "hist_gradient_boosting"
+  ],
+  "probe_protocol": {
+    "sample_rows": 2000,
+    "splits": 2,
+    "test_fraction": 0.25,
+    "tie_margin": 0.01
+  },
+  "fresh_final_lockbox": {
+    "evaluation_type": "frozen_lockbox",
+    "datasets": 32,
+    "top1_accuracy": 0.46875,
+    "top3_coverage": 0.84375,
+    "mean_score_regret": 0.008954439465043798,
+    "median_score_regret": 0.0,
+    "within_1_percent": 0.8125,
+    "worst_score_regret": 0.14555555555555555,
+    "risk_auc": 0.7307692307692307,
+    "risk_rate": 0.1875
+  },
+  "selective_policy_results": [
+    {
+      "risk_threshold": 0.3,
+      "coverage": 0.375,
+      "datasets": 12,
+      "top1_accuracy": 0.5833333333333334,
+      "within_1_percent": 1.0,
+      "mean_score_regret": 0.0003634943564782833,
+      "worst_score_regret": 0.0019668108667831
+    },
+    {
+      "risk_threshold": 0.4,
+      "coverage": 0.5,
+      "datasets": 16,
+      "top1_accuracy": 0.4375,
+      "within_1_percent": 0.9375,
+      "mean_score_regret": 0.0014249092217803125,
+      "worst_score_regret": 0.0154903331003962
+    },
+    {
+      "risk_threshold": 0.5,
+      "coverage": 0.65625,
+      "datasets": 21,
+      "top1_accuracy": 0.42857142857142855,
+      "within_1_percent": 0.9047619047619048,
+      "mean_score_regret": 0.0037751656501208617,
+      "worst_score_regret": 0.0492053742053742
+    },
+    {
+      "risk_threshold": 0.6,
+      "coverage": 0.8125,
+      "datasets": 26,
+      "top1_accuracy": 0.4230769230769231,
+      "within_1_percent": 0.8076923076923077,
+      "mean_score_regret": 0.009985748076740186,
+      "worst_score_regret": 0.1455555555555555
+    }
+  ],
+  "release_policy": {
+    "calibrated_risk_at_most_0.10": "return top-1",
+    "calibrated_risk_0.10_to_0.25": "return top-2",
+    "calibrated_risk_above_0.25": "defer or return top-3"
+  },
+  "limitations": [
+    "Fresh-lockbox exact-winner accuracy is 46.875%; selection is finalized on regret and calibrated deferral, not exact winner rate.",
+    "Worst fresh-lockbox regret is 0.14556, so forced top-1 is not safe when predicted risk is high.",
+    "One high-class-count training dataset was omitted because it did not fit the fixed 2000-row probe budget."
+  ],
+  "tuning": {
+    "default_decision": "retain unweighted pairwise selector because it has lower mean regret and higher within-one-percent coverage on the fresh batch",
+    "weighted_optional_mode": {
+      "prior_lockbox": {
+        "datasets": 27,
+        "top1_accuracy": 0.6296296296296297,
+        "top3_coverage": 0.9629629629629629,
+        "mean_score_regret": 0.009516620276297742,
+        "median_score_regret": 0.0,
+        "within_1_percent": 0.8888888888888888,
+        "worst_score_regret": 0.09371334003686949
+      },
+      "fresh_final_batch": {
+        "datasets": 32,
+        "top1_accuracy": 0.5625,
+        "top3_coverage": 0.90625,
+        "mean_score_regret": 0.01287407307180491,
+        "median_score_regret": 0.0,
+        "within_1_percent": 0.75,
+        "worst_score_regret": 0.14555555555555555
+      }
+    },
+    "nested_oof_weight_tuning": {
+      "nested_oof": {
+        "datasets": 254,
+        "mean_regret": 0.01022588934146838,
+        "median_regret": 0.0,
+        "within_1_percent": 0.7362204724409449,
+        "worst_regret": 0.13161375661375674
+      },
+      "final_config": {
+        "probe_blend": 0.6000000000000001,
+        "reliability_power": 3,
+        "pair_reliability": {
+          "logistic__decision_tree": 0.8947368421052632,
+          "logistic__random_forest": 0.863849765258216,
+          "logistic__extra_trees": 0.9134615384615384,
+          "logistic__hist_gradient_boosting": 0.8511627906976744,
+          "decision_tree__random_forest": 0.8557692307692307,
+          "decision_tree__extra_trees": 0.9116279069767442,
+          "decision_tree__hist_gradient_boosting": 0.8682926829268293,
+          "random_forest__extra_trees": 0.8011695906432749,
+          "random_forest__hist_gradient_boosting": 0.696969696969697,
+          "extra_trees__hist_gradient_boosting": 0.8297872340425532
+        }
+      },
+      "in_sample_oof_mean_regret": 0.008539750999542677
+    },
+    "risk_calibration": {
+      "oof": {
+        "datasets": 254,
+        "raw_brier": 0.18985402891360598,
+        "calibrated_brier": 0.1519742724467134,
+        "calibrated_risk_mean": 0.2204724409448819,
+        "observed_risk_rate": 0.2204724409448819
+      },
+      "prior": {
+        "datasets": 27,
+        "raw_brier": 0.17875898640725973,
+        "calibrated_brier": 0.14912274787355084,
+        "calibrated_risk_mean": 0.18234992693579802,
+        "observed_risk_rate": 0.2222222222222222
+      },
+      "fresh": {
+        "datasets": 32,
+        "raw_brier": 0.18441767402687292,
+        "calibrated_brier": 0.13426402659154577,
+        "calibrated_risk_mean": 0.23004305534294453,
+        "observed_risk_rate": 0.1875,
+        "policies": {
+          "0.1": {
+            "coverage": 0.375,
+            "datasets": 12,
+            "within_1_percent": 1.0,
+            "mean_regret": 0.0003634943564782833,
+            "worst_regret": 0.0019668108667831
+          },
+          "0.15": {
+            "coverage": 0.375,
+            "datasets": 12,
+            "within_1_percent": 1.0,
+            "mean_regret": 0.0003634943564782833,
+            "worst_regret": 0.0019668108667831
+          },
+          "0.2": {
+            "coverage": 0.53125,
+            "datasets": 17,
+            "within_1_percent": 0.9411764705882353,
+            "mean_regret": 0.0013410910322638235,
+            "worst_regret": 0.0154903331003962
+          },
+          "0.25": {
+            "coverage": 0.53125,
+            "datasets": 17,
+            "within_1_percent": 0.9411764705882353,
+            "mean_regret": 0.0013410910322638235,
+            "worst_regret": 0.0154903331003962
+          }
+        }
+      }
+    }
+  }
+}
