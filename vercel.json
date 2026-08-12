@@ -1,0 +1,18 @@
+{
+    "services":  {
+                     "modelwise-api":  {
+                                           "root":  ".",
+                                           "buildCommand":  "pip install -r requirements.txt",
+                                           "entrypoint":  "server.py"
+                                       }
+                 },
+    "rewrites":  [
+                     {
+                         "source":  "/(.*)",
+                         "destination":  {
+                                             "type":  "service",
+                                             "service":  "modelwise-api"
+                                         }
+                     }
+                 ]
+}
