@@ -15,7 +15,7 @@ frontend_origins = [
     origin.strip()
     for origin in os.getenv(
         'FRONTEND_ORIGINS',
-        'http://localhost:3000,http://127.0.0.1:3000',
+        'http://localhost:3000,http://127.0.0.1:3000,https://modelwise-advisor.neglected-turtle.chatgpt.site',
     ).split(',')
     if origin.strip()
 ]
@@ -23,7 +23,7 @@ frontend_origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=frontend_origins,
-    allow_origin_regex=r"https://.*\.vercel\.app",
+    allow_origin_regex=r"https://(?:[a-z0-9-]+\.)*(?:vercel\.app|chatgpt\.site)",
     allow_credentials=False,
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
