@@ -43,7 +43,10 @@ const MODEL_LABELS: Record<string, string> = {
 };
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  process.env.NEXT_PUBLIC_API_URL ||
+  (process.env.NODE_ENV === "production"
+    ? "https://mlselector.vercel.app"
+    : "http://localhost:8000");
 
 function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
