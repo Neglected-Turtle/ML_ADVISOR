@@ -1,5 +1,7 @@
 # Modelwise
 
+**Live site:** [Open Modelwise](https://modelwise-advisor.neglected-turtle.chatgpt.site)
+
 Modelwise is an uncertainty-aware model recommender for tabular classification datasets.
 
 Upload a CSV, choose the target column, and receive a calibrated shortlist from:
@@ -45,7 +47,7 @@ Open [http://localhost:3000](http://localhost:3000).
 On macOS or Linux, replace `.venv\Scripts\` with `.venv/bin/`.
 ## Deploy
 
-Deploy the API from the repository root with Render using render.yaml. Deploy the interface on Vercel with web as the root directory, then set NEXT_PUBLIC_API_URL to the Render service URL.
+Deploy the API from the repository root with Render using `render.yaml`. The interface is published with OpenAI Sites; set `NEXT_PUBLIC_API_URL` to the Render service URL in the hosted environment.
 
 
 ## Python usage
